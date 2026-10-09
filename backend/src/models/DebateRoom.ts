@@ -11,6 +11,7 @@ export interface IDebateRoom extends Document {
   createdBy: mongoose.Types.ObjectId;
   hostType: string;
   hostId: mongoose.Types.ObjectId | null;
+  viewerChatEnabled: boolean;
   judgeType: string;
   judgeCount: number;
   judges: { userId: mongoose.Types.ObjectId; username: string }[];
@@ -22,6 +23,11 @@ export interface IDebateRoom extends Document {
     team: string | null;
     speakerSlot: string | null;
     positionLocked: boolean;
+    primaryRole?: string | null;
+    muted: boolean;
+    speakingAllowed?: boolean;
+    chatMuted?: boolean;
+    cameraMuted?: boolean;
   }[];
   currentPhase: string;
   eloApplied: boolean;
@@ -58,12 +64,24 @@ const debateRoomSchema = new Schema<IDebateRoom>(
       default: 'human',
     },
     hostId: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+    viewerChatEnabled: { type: Boolean, default: true },
     judgeType: {
       type: String,
       enum: ['human', 'ai'],
       default: 'ai',
     },
-    judgeCount: { type: Number, default: 1, min: 1, max: 3 },
+    judgeCount: {
+      type: Number,
+      default: 1,
+      validate: {
+        validator: function (v: number) {
+          // Per the rule docs: Human Judge = 1 or 3 only. AI Judge is always 1
+          // (controlled by the routes that force judgeCount=1 when judgeType='ai').
+          return v === 1 || v === 3;
+        },
+        message: 'judgeCount must be 1 or 3',
+      },
+    },
     judges: [
       {
         userId: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -90,6 +108,15 @@ const debateRoomSchema = new Schema<IDebateRoom>(
           default: null,
         },
         positionLocked: { type: Boolean, default: false },
+        primaryRole: {
+          type: String,
+          enum: ['debater', 'host', 'judge', 'viewer', null],
+          default: null,
+        },
+        muted: { type: Boolean, default: false },
+        speakingAllowed: { type: Boolean, default: false },
+        chatMuted: { type: Boolean, default: false },
+        cameraMuted: { type: Boolean, default: false },
       },
     ],
     currentPhase: {
@@ -102,7 +129,6 @@ const debateRoomSchema = new Schema<IDebateRoom>(
         'judge_feedback',
         'prep_1',
         'closing',
-        'final_judging',
         'completed',
       ],
       default: 'motion',
@@ -116,9 +142,21 @@ const debateRoomSchema = new Schema<IDebateRoom>(
   },
 );
 
-// Indexes
 debateRoomSchema.index({ status: 1, roomType: 1 });
 debateRoomSchema.index({ createdBy: 1 });
 debateRoomSchema.index({ 'participants.userId': 1 });
+
+debateRoomSchema.pre('save', async function (next) {
+  if (this.isModified('status') && (this.status === 'completed' || this.status === 'cancelled')) {
+    try {
+      const { Message } = await import('./Message.js');
+      await Message.deleteMany({ roomId: this._id });
+      console.log(`Cleared all messages for room ${this._id} since it was marked ${this.status}`);
+    } catch (err) {
+      console.error(`Failed to clear messages for room ${this._id}:`, err);
+    }
+  }
+  next();
+});
 
 export const DebateRoom = mongoose.model<IDebateRoom>('DebateRoom', debateRoomSchema);

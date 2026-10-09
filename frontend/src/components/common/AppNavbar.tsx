@@ -5,12 +5,15 @@ import { useAuthStore } from '@stores/authStore';
 import { authService } from '@services/authService';
 import i18n from '@/i18n';
 import { SUPPORTED_LANGUAGES, type AppLanguage } from '@/i18n/config';
+import logoUrl from '../../../assets/images/img_logo.png';
 
 const languageLabels: Record<AppLanguage, string> = {
   en: 'navbar:language.en',
   vi: 'navbar:language.vi',
   ja: 'navbar:language.ja',
 };
+
+const NavButton = Button as any;
 
 export function AppNavbar() {
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -38,7 +41,7 @@ export function AppNavbar() {
     <Navbar expand="lg" sticky="top" className="navbar-dark">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <i className="bi bi-chat-square-quote me-2" />
+          <img src={logoUrl} alt="" className="navbar-brand-logo" aria-hidden="true" />
           {t('brand')}
         </Navbar.Brand>
 
@@ -52,6 +55,10 @@ export function AppNavbar() {
             <Nav.Link as={Link} to="/leaderboard">
               <i className="bi bi-trophy me-1" />
               {t('links.leaderboard')}
+            </Nav.Link>
+            <Nav.Link as={Link} to="/forum">
+              <i className="bi bi-chat-square-text me-1" />
+              Forum
             </Nav.Link>
             {isAuthenticated && (
               <>
@@ -144,6 +151,16 @@ export function AppNavbar() {
                   <i className="bi bi-person me-2" />
                   {t('links.profile')}
                 </NavDropdown.Item>
+                {user.role === 'admin' && (
+                  <NavDropdown.Item as={Link} to="/admin">
+                    <i className="bi bi-speedometer2 me-2" />
+                    {t('links.admin')}
+                  </NavDropdown.Item>
+                )}
+                <NavDropdown.Item as={Link} to="/change-password">
+                  <i className="bi bi-shield-lock me-2" />
+                  {t('links.changePassword')}
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right me-2" />
@@ -152,12 +169,12 @@ export function AppNavbar() {
               </NavDropdown>
             ) : (
               <div className="d-flex gap-2">
-                <Button as={Link as any} to="/login" variant="outline-primary" size="sm" className="px-3">
+                <NavButton as={Link as any} to="/login" variant="outline-primary" size="sm" className="px-3">
                   {t('links.login')}
-                </Button>
-                <Button as={Link as any} to="/register" variant="primary" size="sm" className="px-3">
+                </NavButton>
+                <NavButton as={Link as any} to="/register" variant="primary" size="sm" className="px-3">
                   {t('links.register')}
-                </Button>
+                </NavButton>
               </div>
             )}
           </Nav>

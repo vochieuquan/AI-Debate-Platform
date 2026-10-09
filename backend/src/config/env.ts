@@ -7,6 +7,17 @@ export const ENV = {
   JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
   JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+  GEMINI_AGENT_API_KEYS: (process.env.GEMINI_AGENT_API_KEYS || '')
+    .split(',')
+    .map((key) => key.trim())
+    .filter(Boolean),
+  GEMINI_AGENT_MODEL: process.env.GEMINI_AGENT_MODEL || 'gemini-3.5-flash-lite',
+  GEMINI_AGENT_TIMEOUT_MS: Math.max(
+    parseInt(process.env.GEMINI_AGENT_TIMEOUT_MS || '60000', 10) || 60000,
+    1000,
+  ),
+  GEMINI_LIVE_MODEL: process.env.GEMINI_LIVE_MODEL || 'gemini-3.5-live-translate-preview',
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
   SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com',
   SMTP_PORT: parseInt(process.env.SMTP_PORT || '587', 10),
@@ -14,4 +25,13 @@ export const ENV = {
   SMTP_PASS: process.env.SMTP_PASS || '',
   MAIL_FROM: process.env.MAIL_FROM || '',
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '',
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || '',
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || '',
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || '',
+  CLOUDFLARE_TURN_KEY_ID: process.env.CLOUDFLARE_TURN_KEY_ID || '',
+  CLOUDFLARE_TURN_KEY_API_TOKEN: process.env.CLOUDFLARE_TURN_KEY_API_TOKEN || '',
+  CLOUDFLARE_TURN_TTL_SECONDS: parseInt(
+    process.env.CLOUDFLARE_TURN_TTL_SECONDS || '7200',
+    10,
+  ),
 } as const;

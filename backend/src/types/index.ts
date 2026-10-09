@@ -20,7 +20,6 @@ export type DebatePhase =
   | 'judge_feedback'
   | 'prep_1'
   | 'closing'
-  | 'final_judging'
   | 'completed';
 
 export type SpeakerTurn =
@@ -41,6 +40,7 @@ export interface JwtPayload {
 
 export interface AuthRequest extends Request {
   user?: JwtPayload;
+  file?: Express.Multer.File;
 }
 
 // --- Score ---

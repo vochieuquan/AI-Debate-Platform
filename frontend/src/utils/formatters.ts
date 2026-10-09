@@ -59,6 +59,7 @@ export function getTierDisplay(tier: RankTier): { label: string; color: string }
  */
 export function getPhaseDisplay(phase: DebatePhase): string {
   const map: Record<DebatePhase, string> = {
+    waiting_s1: i18n.t('debate.phases.waitingS1', { ns: 'common' }),
     motion: i18n.t('debate.phases.motion', { ns: 'common' }),
     prep_7: i18n.t('debate.phases.prep7', { ns: 'common' }),
     speech: i18n.t('debate.phases.speech', { ns: 'common' }),
@@ -66,7 +67,6 @@ export function getPhaseDisplay(phase: DebatePhase): string {
     judge_feedback: i18n.t('debate.phases.judgeFeedback', { ns: 'common' }),
     prep_1: i18n.t('debate.phases.prep1', { ns: 'common' }),
     closing: i18n.t('debate.phases.closing', { ns: 'common' }),
-    final_judging: i18n.t('debate.phases.finalJudging', { ns: 'common' }),
     completed: i18n.t('debate.phases.completed', { ns: 'common' }),
   };
   return map[phase];

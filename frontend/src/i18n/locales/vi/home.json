@@ -1,92 +1,52 @@
 {
-  "hero": {
-    "kicker": "Tranh biện học thuật, được hỗ trợ bởi AI",
-    "title": "Nền tảng tranh biện AI cho thi đấu học thuật",
-    "subtitle": "Tranh biện xếp hạng, tạo phòng riêng và nhận phản hồi AI rõ ràng sau mỗi trận."
+  "chapter1": {
+    "kicker": "Academic Debate Platform",
+    "title": "FROM MOTION TO VERDICT",
+    "desc": "Turn a question into a battle of ideas. Engage in structured real-time debates judged by artificial intelligence.",
+    "ctaPrimaryAuth": "Enter Ranked Queue",
+    "ctaPrimaryGuest": "Get Started",
+    "ctaSecondary": "Watch Live Matches"
   },
-  "cta": {
-    "primaryAuth": "Vào xếp hạng",
-    "primaryGuest": "Bắt đầu ngay",
-    "secondaryAuth": "Tạo phòng",
-    "secondaryGuest": "Xem trận đấu"
+  "chapter2": {
+    "kicker": "Choose a stance",
+    "title": "Every motion has more than one truth",
+    "desc": "Align with your perspective. Formulate core arguments and prepare to substantiate your stance under opposition scrutiny.",
+    "propTitle": "PROPOSITION",
+    "propDesc": "Affirmative case files. Defend the motion using logical deductions, structured frameworks, and empirical warrants.",
+    "oppTitle": "OPPOSITION",
+    "oppDesc": "Negative refutations. Challenge assumptions, expose logical inconsistencies, and construct a compelling counter-case."
   },
-  "showcase": {
-    "liveRoom": "Phòng tranh biện trực tiếp",
-    "liveTitle": "Cross Examination đang diễn ra",
-    "liveCopy": "Luồng tranh biện rõ ràng, tốc độ nhanh, tập trung vào quyết định và phản biện.",
-    "playerSnapshot": "Tóm tắt người chơi",
-    "format": "Thể thức",
-    "judge": "Giám khảo",
-    "queue": "Hàng chờ",
-    "elo": "ELO",
-    "winRate": "Tỉ lệ thắng",
-    "feedback": "Phản hồi",
-    "strengths": "4 điểm mạnh"
+  "chapter3": {
+    "kicker": "Structure is everything",
+    "title": "Build your reasoning. Challenge assumptions.",
+    "desc": "Connect logic nodes to formulate a compelling, coherent debate framework that withstands interrogation.",
+    "logic": "Logic: Coherent Structure",
+    "evidence": "Evidence: Empirical Warrants",
+    "rebuttal": "Rebuttal: Direct Clashes",
+    "delivery": "Delivery: Rhetorical Clarity"
   },
-  "sections": {
-    "start": {
-      "title": "Vào trận theo cách bạn muốn",
-      "description": "Chọn xếp hạng để gặp đối thủ phù hợp hoặc mở phòng riêng cho bạn bè và câu lạc bộ.",
-      "bullets": ["Ghép trận xếp hạng", "Phòng riêng linh hoạt", "1v1 và 3v3"],
-      "eyebrow": "Bắt đầu nhanh",
-      "panelTitle": "Ranked hoặc custom room",
-      "panelDetail": "Ghép cặp nhanh hoặc chủ động tạo bàn tranh biện của riêng bạn.",
-      "stats": {
-        "modes": "Chế độ",
-        "access": "Truy cập",
-        "modesValue": "1v1 / 3v3",
-        "accessValue": "Công khai / riêng tư"
-      },
-      "cta": "Khám phá chế độ đấu"
-    },
-    "ai": {
-      "title": "AI giúp bạn tranh biện tốt hơn",
-      "description": "Không chỉ chấm điểm, AI còn chỉ ra lập luận yếu, ngụy biện và điểm cần cải thiện sau mỗi trận.",
-      "bullets": ["Phân tích lập luận", "Phát hiện ngụy biện", "Phản hồi sau trận"],
-      "eyebrow": "Lợi thế khác biệt",
-      "panelTitle": "Feedback rõ ràng, công bằng",
-      "panelDetail": "Biến mỗi trận đấu thành một vòng học tập có thể đo được.",
-      "stats": {
-        "analysis": "Phân tích",
-        "detection": "Nhận diện",
-        "analysisValue": "Lập luận",
-        "detectionValue": "Ngụy biện"
-      },
-      "cta": "Xem trải nghiệm AI"
-    },
-    "progress": {
-      "title": "Theo dõi tiến bộ thật qua từng trận",
-      "description": "Điểm ELO, lịch sử thắng thua và hồ sơ cá nhân giúp bạn biết mình đang tiến lên ở đâu.",
-      "bullets": ["Xếp hạng ELO", "Lịch sử trận đấu", "Hồ sơ tiến bộ"],
-      "eyebrow": "Tiến bộ đo được",
-      "panelTitle": "Stats không chỉ để trưng bày",
-      "panelDetail": "Biết bạn đang mạnh ở đâu và cần luyện thêm điều gì.",
-      "stats": {
-        "tracking": "Theo dõi",
-        "improvement": "Cải thiện",
-        "trackingValue": "Win / Loss",
-        "improvementValue": "Theo thời gian"
-      },
-      "cta": "Xem bảng xếp hạng"
-    },
-    "community": {
-      "title": "Xem cộng đồng tranh biện đang diễn ra",
-      "description": "Theo dõi trận đang live, bảng xếp hạng và hoạt động nổi bật để học nhanh hơn từ người khác.",
-      "bullets": ["Trận trực tiếp", "Bảng xếp hạng", "Quan sát chiến thuật"],
-      "eyebrow": "Khám phá cộng đồng",
-      "panelTitle": "Học qua quan sát",
-      "panelDetail": "Không cần vào trận ngay, bạn vẫn có thể xem, phân tích và học hỏi.",
-      "stats": {
-        "watch": "Theo dõi",
-        "explore": "Khám phá",
-        "watchValue": "Trận trực tiếp",
-        "exploreValue": "Top người chơi"
-      },
-      "cta": "Xem trận đang diễn ra"
-    }
+  "chapter4": {
+    "kicker": "Real-time Clashing",
+    "title": "Speak live. Respond under pressure.",
+    "desc": "Step onto the digital podium. Express reasoning clearly, adapt to cross-examinations, and manage your clock in real time.",
+    "cta": "Watch Live Matches"
   },
-  "finalCta": {
-    "title": "Sẵn sàng cho trận tranh biện tiếp theo?",
-    "copy": "Bắt đầu với một trận xếp hạng, mở phòng riêng hoặc khám phá cộng đồng đang tranh biện ngay lúc này."
+  "chapter5": {
+    "kicker": "Intelligent Analytics",
+    "title": "Judged by reasoning, not volume",
+    "desc": "Our AI analysis engine processes speech recordings, detects fallacies, dissects arguments, and scores based on substance.",
+    "fallacyTitle": "Fallacy Detection",
+    "fallacyDesc": "Identifies circular reasoning, ad hominem attacks, strawman fallacies, and structural invalidity automatically.",
+    "speechTitle": "Speech Dissection",
+    "speechDesc": "Evaluates key claims, responses, cross-examination value, and communication clarity to provide objective verdicts."
+  },
+  "chapter6": {
+    "kicker": "Elevate your mind",
+    "title": "Your argument changes here.",
+    "desc": "Enter the matchmaking queue, host private debate rounds with customized structures, and receive actionable insights to hone your speech.",
+    "ctaPrimaryAuth": "Enter Ranked Queue",
+    "ctaPrimaryGuest": "Create Free Account",
+    "ctaSecondaryAuth": "Create Custom Room",
+    "ctaSecondaryGuest": "Watch Live Matches"
   }
 }

@@ -6,7 +6,6 @@ import DebateLayout from '@layouts/DebateLayout';
 import { ProtectedRoute } from '@components/common/ProtectedRoute';
 import { LoadingScreen } from '@components/common/LoadingScreen';
 
-// Lazy-loaded pages
 const HomePage = lazy(() => import('@pages/HomePage'));
 const LoginPage = lazy(() => import('@pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('@pages/auth/RegisterPage'));
@@ -15,13 +14,19 @@ const ForgotPasswordPage = lazy(() => import('@pages/auth/ForgotPasswordPage'));
 const ResetPasswordPage = lazy(() => import('@pages/auth/ResetPasswordPage'));
 const ChangePasswordPage = lazy(() => import('@pages/auth/ChangePasswordPage'));
 const ProfilePage = lazy(() => import('@pages/user/ProfilePage'));
+const HistoryPage = lazy(() => import('@pages/user/HistoryPage'));
 const LeaderboardPage = lazy(() => import('@pages/ranking/LeaderboardPage'));
+const AdminDashboardPage = lazy(() => import('@pages/admin/AdminDashboardPage'));
 const LiveMatchesPage = lazy(() => import('@pages/matches/LiveMatchesPage'));
 const CreateRoomPage = lazy(() => import('@pages/room/CreateRoomPage'));
 const LobbyPage = lazy(() => import('@pages/room/LobbyPage'));
 const DebateRoomPage = lazy(() => import('@pages/debate/DebateRoomPage'));
+const DebateRulesPage = lazy(() => import('@pages/debate/DebateRulesPage'));
+const PrivateRoomPage = lazy(() => import('@pages/debate/PrivateRoomPage'));
 const RankQueuePage = lazy(() => import('@pages/matchmaking/RankQueuePage'));
-const ReplayPage = lazy(() => import('@pages/replay/ReplayPage'));
+const ResultPage = lazy(() => import('@pages/result/ResultPage'));
+const ForumPage = lazy(() => import('@pages/forum/ForumPage'));
+const ForumTopicPage = lazy(() => import('@pages/forum/ForumTopicPage'));
 const NotFoundPage = lazy(() => import('@pages/NotFoundPage'));
 
 function withSuspense(Component: React.LazyExoticComponent<() => JSX.Element>) {
@@ -48,12 +53,24 @@ export const routes: RouteObject[] = [
         element: withSuspense(ProfilePage),
       },
       {
+        path: 'profile/:userId/history',
+        element: withSuspense(HistoryPage),
+      },
+      {
         path: 'leaderboard',
         element: withSuspense(LeaderboardPage),
       },
       {
         path: 'matches',
         element: withSuspense(LiveMatchesPage),
+      },
+      {
+        path: 'forum',
+        element: withSuspense(ForumPage),
+      },
+      {
+        path: 'forum/:topicId',
+        element: withSuspense(ForumTopicPage),
       },
       {
         element: <ProtectedRoute />,
@@ -65,8 +82,14 @@ export const routes: RouteObject[] = [
         ],
       },
       {
-        path: 'replay/:sessionId',
-        element: withSuspense(ReplayPage),
+        element: <ProtectedRoute allowedRoles={['admin']} />,
+        children: [
+          { path: 'admin', element: withSuspense(AdminDashboardPage) },
+        ],
+      },
+      {
+        path: 'result/:sessionId',
+        element: withSuspense(ResultPage),
       },
     ],
   },
@@ -76,7 +99,11 @@ export const routes: RouteObject[] = [
     children: [
       {
         element: <DebateLayout />,
-        children: [{ index: true, element: withSuspense(DebateRoomPage) }],
+        children: [
+          { index: true, element: withSuspense(DebateRoomPage) },
+          { path: 'rules', element: withSuspense(DebateRulesPage) },
+          { path: 'private/:team', element: withSuspense(PrivateRoomPage) },
+        ],
       },
     ],
   },

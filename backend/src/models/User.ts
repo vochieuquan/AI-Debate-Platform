@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 export interface IUser extends Document {
@@ -20,10 +20,16 @@ export interface IUser extends Document {
     school: string;
     club: string;
   };
+  isBanned: boolean;
+  banReason?: string;
+  bannedUntil?: Date | null;
+  bannedAt?: Date | null;
+  bannedBy?: Types.ObjectId | null;
   stats: {
     totalDebates: number;
     wins: number;
     losses: number;
+    draws: number;
     totalScore: number;
     avgScore: number;
   };
@@ -83,10 +89,16 @@ const userSchema = new Schema<IUser>(
       school: { type: String, default: '' },
       club: { type: String, default: '' },
     },
+    isBanned: { type: Boolean, default: false },
+    banReason: { type: String, default: '' },
+    bannedUntil: { type: Date, default: null },
+    bannedAt: { type: Date, default: null },
+    bannedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
     stats: {
       totalDebates: { type: Number, default: 0 },
       wins: { type: Number, default: 0 },
       losses: { type: Number, default: 0 },
+      draws: { type: Number, default: 0 },
       totalScore: { type: Number, default: 0 },
       avgScore: { type: Number, default: 0 },
     },

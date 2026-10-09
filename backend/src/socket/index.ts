@@ -5,6 +5,12 @@ import { verifyAccessToken } from '../utils/jwt.js';
 import { registerRoomHandlers } from './room.socket.js';
 import { registerChatHandlers } from './chat.socket.js';
 import { registerDebateHandlers } from './debate.socket.js';
+import { registerCEHandlers, ceTimerService } from './ce.socket.js';
+import { registerPrivateRoomHandlers } from './privateRoom.socket.js';
+import { registerVoiceHandlers } from './voice.socket.js';
+import { registerTranslationHandlers } from './translation.socket.js';
+import { timerService } from './timer.service.js';
+import { setDisconnectServiceIO } from './disconnect.service.js';
 
 let io: Server;
 
@@ -21,6 +27,9 @@ export function initSocket(server: HttpServer) {
     },
     transports: ['websocket', 'polling'],
   });
+
+  // Initialize disconnect service with io instance
+  setDisconnectServiceIO(io);
 
   // Auth middleware — verify JWT on connection
   io.use((socket, next) => {
@@ -42,11 +51,20 @@ export function initSocket(server: HttpServer) {
   io.on('connection', (socket: Socket) => {
     const userId = (socket as any).userId;
     console.log(`🔌 User connected: ${userId} [${socket.id}]`);
+    socket.join(`user:${userId}`);
+
+    // Initialize timer services with io so they can broadcast
+    timerService.setIO(io);
+    ceTimerService.setIO(io);
 
     // Register event handlers
     registerRoomHandlers(io, socket);
     registerChatHandlers(io, socket);
     registerDebateHandlers(io, socket);
+    registerCEHandlers(io, socket);
+    registerPrivateRoomHandlers(io, socket);
+    registerVoiceHandlers(io, socket);
+    registerTranslationHandlers(io, socket);
 
     socket.on('disconnect', (reason) => {
       console.log(`🔌 User disconnected: ${userId} [${reason}]`);
